@@ -1,0 +1,164 @@
+<!DOCTYPE htm>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        html {
+            background: url('bg.jpeg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+</head>
+
+<body onload="toggleSlideMenu()">
+    <div class="parent">
+        <nav class="navbar">
+            <a href="#" onclick="toggleSlideMenu()">
+                <i id="arrow" class="fas fa-chevron-down fa-lg"></i>
+            </a>
+
+        </nav>
+        <div id="input-menu" class="input-nav">
+            <input id="input-hashtag" type="text" placeholder="Enter a hashtag here!">
+            </input>
+            <br />
+            <br />
+
+            <a href='#' onclick="changeHashtag()" id="submit-button" class="button">Submit Hashtag</a>
+            <a href='#' onclick="clearAll()" id="submit-buttons" class="button_clear">Clear all</a>
+
+            <a href="#" class="btn-close" onclick="closeSlideMenu()">
+
+
+            </a>
+        </div>
+    </div>
+    <div id="container">
+    </div>
+
+
+    <script>
+        // Has navbar been opened?
+        $("#input-hashtag").keypress(function(event) {
+            if (event.keyCode == 13)
+                $("#submit-button").click();
+        });
+        var isToggled = false;
+
+        function toggleSlideMenu() {
+            //If container is open, make height 50, else 0
+            var heightPX = isToggled ? 0 : 100;
+            //If container is open, set rotation angle for arrow to 180, else 0
+            var deg = isToggled ? 0 : 180;
+            //This is the arrow to be rotated
+            var arrow = document.getElementById('arrow');
+            //Actual changing of containr position
+            document.getElementById('input-menu').style.height = heightPX + 'px';
+
+
+            //rotate chevron
+
+            arrow.style.webkitTransform = 'rotate(' + deg + 'deg)';
+            arrow.style.mozTransform = 'rotate(' + deg + 'deg)';
+            arrow.style.msTransform = 'rotate(' + deg + 'deg)';
+            arrow.style.oTransform = 'rotate(' + deg + 'deg)';
+            arrow.style.transform = 'rotate(' + deg + 'deg)';
+            //Handle toggling
+            isToggled = !isToggled;
+        }
+
+        //Important stuff starts here
+        var tweetIdList = new Array();
+        var hashtag;
+        var delay = 0;
+        var isStarted;
+
+        function changeHashtag() {
+            hashtag = document.getElementById("input-hashtag").value;
+            hashtag = hashtag.replace("#", "");
+            if (!isStarted) {
+                init();
+            }
+        }
+
+        function init() {
+            fetch('http://127.0.0.1:5000/_return_tweets?hashtag=' + hashtag)
+                .then(res => res.json())
+                .then(res => filterList(res.result))
+
+        }
+        //Merge the old and new list of tweets appropriately
+        function filterList(tweetList) {
+            if (!(isStarted))
+                isStarted = true;
+            var newList = new Array();
+            tweetList.forEach(function(element) {
+                found = false;
+                tweetIdList.forEach(function(oldTweetID) {
+                    if (element.id == oldTweetID) {
+                        found = true;
+
+                    }
+
+                });
+                if (!found) {
+                    tweetIdList.push(element.id);
+                    newList.push(element);
+                }
+            });
+            loadNewTweetList(newList);
+        }
+
+        function loadNewTweetList(newList) {
+            for (i = newList.length - 1; i >= 0; i--) {
+                if (newList[i].imageLink != "") {
+                    var indexOfUrl = newList[i].text.indexOf("pic.twitter.com");
+                    newList[i].text = newList[i].text.slice(0, indexOfUrl);
+                }
+                visualizeTweet(newList[i].id.toString(), newList[i].username, newList[i].text, newList[i].imageLink, newList[i].profilephoto);
+                delay += 200;
+            }
+            delay = 0;
+            setTimeout(function() {
+                init()
+            }, 1000);
+        }
+
+        function visualizeTweet(id, username, content, imageLink, profilephoto) {
+            setTimeout(function() {
+                document.getElementById("container").insertAdjacentHTML('afterend', '<div class="tweet" id="#' + id + '">	<img src="' + profilephoto + '" alt="" class="profile-photo" onclick="hideTweet(&quot;#' + id + '&quot;)"></img>	<div id="tests" class="speech-bubble">	<strong id="username" style="text-align: left">' + username + '</strong><br />	' + content + '<br /><div id="image' + id + '" class="image-container"><img class="tweet-image" src="' + imageLink + '"></img></div></div></div>');
+                setTimeout(function() {
+                    if (imageLink == "")
+                        document.getElementById("image" + id).style.display = "none";
+                    document.getElementById("#" + id).style.opacity = "1";
+                }, 10);
+            }, delay);
+        }
+
+        function hideTweet(id) {
+            console.log(id + "");
+            document.getElementById(id).style.display = "none";
+        }
+
+        function clearAll() {
+            for (i = 0; i < tweetIdList.length; i++) {
+                document.getElementById("#" + tweetIdList[i]).style.display = "none";
+
+            }
+        }
+    </script>
+
+
+
+</body>
+</hml>

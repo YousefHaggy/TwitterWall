@@ -1,0 +1,229 @@
+
+body{
+   font-family:"Arial", Serif;
+         transition: 0.5s;
+
+}
+
+
+.navbar
+{
+
+   background-color:white;
+   overflow: hidden;
+   height:43px;
+   top:0;
+   opacity: .9;
+width:100%;
+   color:black;
+}
+.navbar a{
+float:left;
+display: block;
+color:black;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+font-size:17px;
+}
+
+.navbar div
+{
+   padding:8px 0 0 0;
+}
+.navbar a:hover{
+background-color:#111;
+color:white;
+}
+.input-nav
+{
+
+   height: 0;
+   width: 100%;
+   position: relative;
+   text-align: center;
+   margin: auto;
+top: 0;
+   right:0;
+   left:0;
+   z-index:1;
+   background-color:white;
+   opacity: 0.9;
+   overflow-x: hidden;
+   transition: 0.5s;
+}
+#arrow
+{
+      transition: 0.5s;
+
+}
+#main
+{
+width:100%;
+}
+.tweet
+{
+   overflow-wrap: break-word;
+   position: relative;
+   display: inline-block;
+   width:100%;
+   height: auto;
+   opacity: 0;
+   vertical-align: middle;
+   text-align: center;
+   margin: auto;
+   margin-top: 5px;
+   transition: 1s;
+   font-family: "Helvetica Neue", Helvetica,Arial,sans-serif;
+   font-size:25px;
+}
+.profile-photo
+{
+   display: inline-block;
+   border-radius: 50%;
+   margin-right: 15px;
+   width:75px;
+   height: 75px;
+   vertical-align: top;
+   position: relative;
+   top:0;
+
+}
+.speech-bubble
+{
+   display: inline-block;
+   position: relative;
+   width: 80%;
+   padding: 20px;
+   background-color: white;
+   border-radius: 10px;
+   color: black;
+   margin: auto;
+   text-align: center;
+
+
+}
+.speech-bubble:after
+{
+   content: "";
+   position: absolute;
+   top: 25px;
+   left: -15px;
+   width: 0;
+   height: 0;
+   border-top: 25px solid transparent;
+   border-bottom: 25px solid transparent;
+      border-right: 25px solid white;
+
+}
+.button {
+   border: 1px solid #0a3c59;
+   background: #00becc;
+   background: -webkit-gradient(linear, left top, left bottom, from(#178dd6), to(#00becc));
+   background: -webkit-linear-gradient(top, #178dd6, #00becc);
+   background: -moz-linear-gradient(top, #178dd6, #00becc);
+   background: -ms-linear-gradient(top, #178dd6, #00becc);
+   background: -o-linear-gradient(top, #178dd6, #00becc);
+   background-image: -ms-linear-gradient(top, #178dd6 0%, #00becc 100%);
+   padding: 10.5px 21px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #7ea4bd 0 1px 0;
+   color: #040505;
+   font-weight: bold;
+   font-size: 14px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button:hover {
+   border: 1px solid #0a3c59;
+   text-shadow: #1e4158 0 1px 0;
+   background: #3e779d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+   background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+   background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+   background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+   background: -o-linear-gradient(top, #65a9d7, #3e779d);
+   background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+   color: #fff;
+   }
+.button:active {
+   text-shadow: #1e4158 0 1px 0;
+   border: 1px solid #0a3c59;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#3e779d));
+   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   background-image: -ms-linear-gradient(top, #3e779d 0%, #65a9d7 100%);
+   color: #fff;
+   }
+   .button_clear {
+   border: 1px solid #0a3c59;
+   background: #630b0b;
+   background: -webkit-gradient(linear, left top, left bottom, from(#c71010), to(#630b0b));
+   background: -webkit-linear-gradient(top, #c71010, #630b0b);
+   background: -moz-linear-gradient(top, #c71010, #630b0b);
+   background: -ms-linear-gradient(top, #c71010, #630b0b);
+   background: -o-linear-gradient(top, #c71010, #630b0b);
+   background-image: -ms-linear-gradient(top, #c71010 0%, #630b0b 100%);
+   padding: 10.5px 21px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #7ea4bd 0 1px 0;
+   color: #ffffff;
+   font-size: 14px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   position: absolute;
+   right: 10px;
+   }
+.button_clear:hover {
+   border: 1px solid #0a3c59;
+   text-shadow: #1e4158 0 1px 0;
+   background: #e37878;
+   background: -webkit-gradient(linear, left top, left bottom, from(#d62020), to(#e37878));
+   background: -webkit-linear-gradient(top, #d62020, #e37878);
+   background: -moz-linear-gradient(top, #d62020, #e37878);
+   background: -ms-linear-gradient(top, #d62020, #e37878);
+   background: -o-linear-gradient(top, #d62020, #e37878);
+   background-image: -ms-linear-gradient(top, #d62020 0%, #e37878 100%);
+   color: #fff;
+   }
+.button_clear:active {
+   text-shadow: #1e4158 0 1px 0;
+   border: 1px solid #0a3c59;
+   background: #ff4f4f;
+   background: -webkit-gradient(linear, left top, left bottom, from(#a30000), to(#e37878));
+   background: -webkit-linear-gradient(top, #a30000, #ff4f4f);
+   background: -moz-linear-gradient(top, #a30000, #ff4f4f);
+   background: -ms-linear-gradient(top, #a30000, #ff4f4f);
+   background: -o-linear-gradient(top, #a30000, #ff4f4f);
+   background-image: -ms-linear-gradient(top, #a30000 0%, #ff4f4f 100%);
+   color: #fff;
+   }
+   .image-container
+   {
+     position: relative;
+     left: 0;
+     right: 0;
+      margin: auto;
+      overflow:auto;
+  }
+   .tweet-image{
+      object-fit: contain;
+
+       max-width:70vw;
+      max-height: 70vh;
+   }
