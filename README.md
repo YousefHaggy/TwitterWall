@@ -10,8 +10,9 @@ Tweets are retrieved via a python web scraper.
 First install all requirements:
 `pip install requirements.txt`
 
-Launch the web scraper by navigating to the 'py' folder and running retrieveTweets.py
+Launch the web scraper by navigating to the 'py' folder and running retrieveTweets.py:
+`python retrieveTweets.py`
 
-Finally, launch the index.html file
+Finally, open the index.html file
 
 
