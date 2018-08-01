@@ -54,7 +54,7 @@
                 $("#submit-button").click();
         });
         var isToggled = false;
-
+        var gifs="yes";
         function toggleSlideMenu() {
             //If container is open, make height 50, else 0
             var heightPX = isToggled ? 0 : 100;
@@ -92,7 +92,7 @@
         }
 
         function init() {
-            fetch('http://127.0.0.1:5000/_return_tweets?hashtag=' + hashtag)
+            fetch('http://127.0.0.1:5000/_return_tweets?hashtag=' + hashtag+"&gifs="+gifs)
                 .then(res => res.json())
                 .then(res => filterList(res.result))
 
@@ -125,7 +125,7 @@
                     var indexOfUrl = newList[i].text.indexOf("pic.twitter.com");
                     newList[i].text = newList[i].text.slice(0, indexOfUrl);
                 }
-                visualizeTweet(newList[i].id.toString(), newList[i].username, newList[i].text, newList[i].imageLink, newList[i].profilephoto);
+                visualizeTweet(newList[i].id.toString(), newList[i].username, newList[i].text, newList[i].imageLink, newList[i].profilephoto,newList[i].videoLink);
                 delay += 200;
             }
             delay = 0;
@@ -134,11 +134,19 @@
             }, 1000);
         }
 
-        function visualizeTweet(id, username, content, imageLink, profilephoto) {
+        function visualizeTweet(id, username, content, imageLink, profilephoto,videoLink) {
             setTimeout(function() {
+                if(videoLink!="" && videoLink.indexOf(".m3u8")==-1)
+                {
+                    var type="type/mp4"
+                    
+                    document.getElementById("container").insertAdjacentHTML('afterend', '<div class="tweet" id="#' + id + '">   <img src="' + profilephoto + '" alt="" class="profile-photo" onclick="hideTweet(&quot;#' + id + '&quot;)"></img>    <div id="tests" class="speech-bubble">  <strong id="username" style="text-align: left">' + username + '</strong><br />  ' + content + '<br /><div id="image' + id + '" class="image-container"><video class="tweet-image" src="' + videoLink + '" controls loop autoplay type="'+type+'"></video></div></div></div>'); 
+                }
+                else{
                 document.getElementById("container").insertAdjacentHTML('afterend', '<div class="tweet" id="#' + id + '">	<img src="' + profilephoto + '" alt="" class="profile-photo" onclick="hideTweet(&quot;#' + id + '&quot;)"></img>	<div id="tests" class="speech-bubble">	<strong id="username" style="text-align: left">' + username + '</strong><br />	' + content + '<br /><div id="image' + id + '" class="image-container"><img class="tweet-image" src="' + imageLink + '"></img></div></div></div>');
+                }
                 setTimeout(function() {
-                    if (imageLink == "")
+                    if (imageLink == "" && videoLink=="")
                         document.getElementById("image" + id).style.display = "none";
                     document.getElementById("#" + id).style.opacity = "1";
                 }, 10);
