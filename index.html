@@ -35,6 +35,11 @@
             <br />
 
             <a href='#' onclick="changeHashtag()" id="submit-button" class="button">Submit Hashtag</a>
+            <div><label class="control control-checkbox">
+            Pull GIFs
+            <input type="checkbox" id="checkGifs" onchange="isGifsEnabled()" checked="checked" />
+            <div class="control_indicator"></div>
+        </label></div>
             <a href='#' onclick="clearAll()" id="submit-buttons" class="button_clear">Clear all</a>
 
             <a href="#" class="btn-close" onclick="closeSlideMenu()">
@@ -82,7 +87,17 @@
         var hashtag;
         var delay = 0;
         var isStarted;
-
+        function isGifsEnabled()
+        {
+            var checkBox=document.getElementById("checkGifs");
+            if(checkBox.checked)
+            {
+                gifs="yes";
+            }
+            else{
+                gifs="no";
+            }
+        }
         function changeHashtag() {
             hashtag = document.getElementById("input-hashtag").value;
             hashtag = hashtag.replace("#", "");
@@ -94,7 +109,7 @@
         function init() {
             fetch('http://127.0.0.1:5000/_return_tweets?hashtag=' + hashtag+"&gifs="+gifs)
                 .then(res => res.json())
-                .then(res => filterList(res.result))
+                .then(res => filterList(res.result)).catch(function(){isStarted=false});
 
         }
         //Merge the old and new list of tweets appropriately
@@ -140,7 +155,7 @@
                 {
                     var type="type/mp4"
                     
-                    document.getElementById("container").insertAdjacentHTML('afterend', '<div class="tweet" id="#' + id + '">   <img src="' + profilephoto + '" alt="" class="profile-photo" onclick="hideTweet(&quot;#' + id + '&quot;)"></img>    <div id="tests" class="speech-bubble">  <strong id="username" style="text-align: left">' + username + '</strong><br />  ' + content + '<br /><div id="image' + id + '" class="image-container"><video class="tweet-image" src="' + videoLink + '" controls loop autoplay type="'+type+'"></video></div></div></div>'); 
+                    document.getElementById("container").insertAdjacentHTML('afterend', '<div class="tweet" id="#' + id + '">   <img src="' + profilephoto + '" alt="" class="profile-photo" onclick="hideTweet(&quot;#' + id + '&quot;)"></img>    <div id="tests" class="speech-bubble">  <strong id="username" style="text-align: left">' + username + '</strong><br />  ' + content + '<br /><div id="image' + id + '" class="image-container"><video class="tweet-image" src="' + videoLink + '"  loop autoplay type="'+type+'"></video></div></div></div>'); 
                 }
                 else{
                 document.getElementById("container").insertAdjacentHTML('afterend', '<div class="tweet" id="#' + id + '">	<img src="' + profilephoto + '" alt="" class="profile-photo" onclick="hideTweet(&quot;#' + id + '&quot;)"></img>	<div id="tests" class="speech-bubble">	<strong id="username" style="text-align: left">' + username + '</strong><br />	' + content + '<br /><div id="image' + id + '" class="image-container"><img class="tweet-image" src="' + imageLink + '"></img></div></div></div>');

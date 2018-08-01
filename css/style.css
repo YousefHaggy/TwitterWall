@@ -1,11 +1,82 @@
-
+video {
+    width: 60%;
+    height: auto;
+}
 body{
    font-family:"Arial", Serif;
          transition: 0.5s;
 
 }
 
+    .control {
+            font-family: arial;
 
+               position: absolute;
+               top:0;
+right: 0;            padding-left: 30px;
+            margin-bottom: 5px;
+            padding-top: 0px;
+            margin-right: 15px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+        }
+            .control input {
+                position: absolute;
+                z-index: -1;
+                opacity: 0;
+            }
+        .control_indicator {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background: #ffffff;
+            border: 2px solid #000000;
+        }
+        .control-radio .control_indicator {
+            border-radius: undefined%;
+        }
+        
+        .control:hover input ~ .control_indicator,
+        .control input:focus ~ .control_indicator {
+            background: #FFFFFF;
+        }
+        
+        .control input:checked ~ .control_indicator {
+            background: #00f766;
+        }
+        .control:hover input:not([disabled]):checked ~ .control_indicator,
+        .control input:checked:focus ~ .control_indicator {
+            background: #44ff3e;
+        }
+        .control input:disabled ~ .control_indicator {
+            background: #e6e6e6;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .control_indicator:after {
+            box-sizing: unset;
+            content: '';
+            position: absolute;
+            display: none;
+        }
+        .control input:checked ~ .control_indicator:after {
+            display: block;
+        }
+        .control-checkbox .control_indicator:after {
+            left: 4px;
+            top: 0px;
+            width: 5px;
+            height: 11px;
+            border: solid #000000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .control-checkbox input:disabled ~ .control_indicator:after {
+            border-color: #7b7b7b;
+        }
 .navbar
 {
 
@@ -49,7 +120,7 @@ top: 0;
    z-index:1;
    background-color:white;
    opacity: 0.9;
-   overflow-x: hidden;
+   overflow: hidden;
    transition: 0.5s;
 }
 #arrow
@@ -117,6 +188,7 @@ width:100%;
 
 }
 .button {
+
    border: 1px solid #0a3c59;
    background: #00becc;
    background: -webkit-gradient(linear, left top, left bottom, from(#178dd6), to(#00becc));
@@ -165,6 +237,8 @@ width:100%;
    color: #fff;
    }
    .button_clear {
+      display:inline-block;
+      float:right;
    border: 1px solid #0a3c59;
    background: #630b0b;
    background: -webkit-gradient(linear, left top, left bottom, from(#c71010), to(#630b0b));
@@ -185,11 +259,14 @@ width:100%;
    font-size: 14px;
    font-family: helvetica, serif;
    text-decoration: none;
+   margin-bottom:15px;
+   bottom:0;
    vertical-align: middle;
    position: absolute;
    right: 10px;
    }
 .button_clear:hover {
+
    border: 1px solid #0a3c59;
    text-shadow: #1e4158 0 1px 0;
    background: #e37878;

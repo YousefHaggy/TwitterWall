@@ -15,8 +15,8 @@ def _return_tweets():
 	global cachedTweets
 	gifs=request.args.get('gifs')
 	print(gifs)
-	if len(cachedTweets)>30:
-		cachedTweets=cachedTweets[19:]
+	if len(cachedTweets)>150:
+		cachedTweets=cachedTweets[100:]
 	baseUrl=u'https://twitter.com/hashtag/'
 	httprequest=http.request("GET",baseUrl+request.args.get('hashtag')+"?f=tweets&vertical=news")
 
@@ -30,18 +30,19 @@ def _return_tweets():
 	for i in range(len(mainTweetDiv)):
 		if mainTweetDiv[i].find('div',class_='AdaptiveMedia-photoContainer') is not None:
 			imageLinks[i]=mainTweetDiv[i].find('div',class_='AdaptiveMedia-photoContainer')['data-image-url']
-		if mainTweetDiv[i].find('div',class_="PlayableMedia-player") is not None:
-			for tweet in cachedTweets:
-				if tweet.id == ids[i]:
-					videoLinks[i]=tweet.videoLink[i]
-			if videoLinks[i]=="" and gifs=="yes":
-				videoUrl="https://twitter.com/i/videos/tweet/"+ids[i]
-				with ydl:
-					result=ydl.extract_info(videoUrl,download=False)
-				if 'entries' in result:
-					videoLinks[i]=result['entries'][0]	
-				videoLinks[i]=result['url']
-				cachedTweets.append(CachedTweet(ids[i],videoLinks))
+		if gifs=="yes":
+			if mainTweetDiv[i].find('div',class_="PlayableMedia-player") is not None:
+				for tweet in cachedTweets:
+					if tweet.id == ids[i]:
+						videoLinks[i]=tweet.videoLink[i]
+				if videoLinks[i]=="" and gifs=="yes":
+					videoUrl="https://twitter.com/i/videos/tweet/"+ids[i]
+					with ydl:
+						result=ydl.extract_info(videoUrl,download=False)
+					if 'entries' in result:
+						videoLinks[i]=result['entries'][0]	
+					videoLinks[i]=result['url']
+					cachedTweets.append(CachedTweet(ids[i],videoLinks))
 	profileImages=[tweet.find('img',class_="avatar")['src'] for tweet in mainTweetDiv]
 
 	for i in range(len(mainTweetDiv)):
