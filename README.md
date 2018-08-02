@@ -3,8 +3,11 @@ This responsive Twitter Wall is an excellent presentation tool that displays twe
 matching a user inputted hashtag. It offers basic moderation tools, image support, and 
 no request limits. It's an excellent tool to enhance engagement at conferences and presentations.
 Tweets are retrieved via a python web scraper.
+
+You can access at http://twitterwall.pythonanywhere.com/, but you will get better performance hosting it on your own.
+That link will not always be maintained.
 # How it looks
-![alt text](http://i66.tinypic.com/2qc4huh.png)
+![alt text](http://i66.tinypic.com/2qc4huh.png) 
 # Getting Started
 
 First install all requirements:
